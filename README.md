@@ -37,7 +37,8 @@ La grammatica è ricorsiva a sinistra. <br>
 Dopo aver eliminato la ricorsione, la grammatica si presenta nel seguente modo:<br>
     P   -> S P'<br>
     P'  -> ; S P' |esp<br>
-    P   -> S<br>
+   //produzione duplicata<br>
+  //  P   -> S<br>
     S   -> IF E THEN S<br>
     S   -> ID ASSIGN E<br>
     E   -> T RELOP T<br>
@@ -51,7 +52,8 @@ La grammatica deve essere trasformata tramite una fattorizzazione sinistra<br>
 Dopo averla fattorizzata, la grammatica risulta nel seguente modo: <br>
     P   -> S P'<br>
     P'  -> ; S P' |esp<br>
-    P   -> S<br>
+    // produzione duplicata<br>
+   // P   -> S<br>
     S   -> IF E THEN S<br>
     S   -> ID ASSIGN E<br>
     E   -> T E' <br>
