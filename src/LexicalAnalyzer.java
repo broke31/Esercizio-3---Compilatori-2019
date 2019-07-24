@@ -29,6 +29,7 @@ public class LexicalAnalyzer {
   public LexicalAnalyzer() throws IOException {
     state = 0;
     position = -1;
+    lessema = "";
     stringTable = new HashMap<String, Token>();
     stringTable.put("if", new Token("IF"));
     stringTable.put("then", new Token("THEN"));
@@ -313,6 +314,7 @@ public class LexicalAnalyzer {
    */
 
   public Boolean initialize(String filePath) throws IOException {
+    app = "";
     buffer = new BufferedReader(new FileReader(filePath));
     int test;
     while ((test = buffer.read()) != -1) {
@@ -322,6 +324,7 @@ public class LexicalAnalyzer {
       app += (char) test;
     }
     app += '\0';
+   // System.out.println("app: "+app);
     return true;
   }
 
@@ -343,7 +346,6 @@ public class LexicalAnalyzer {
 
   // ritorma il prossimo carattere nella stringa
   private int nextCharacter() {
-  //  System.out.println("APP: "+ app.toString());
     position++;
     return app.charAt(position);
   }
