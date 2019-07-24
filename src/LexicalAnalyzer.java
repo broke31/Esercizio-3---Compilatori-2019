@@ -14,7 +14,7 @@ public class LexicalAnalyzer {
   private static HashMap<String, Token> stringTable;
   int state;
   static int position;
-  String app;
+  static String app = "";
   char character = ' ';
   String lessema = "";
   String type = "";
@@ -35,22 +35,23 @@ public class LexicalAnalyzer {
     stringTable.put("else", new Token("ELSE"));
     stringTable.put("while", new Token("WHILE"));
     stringTable.put("for", new Token("FOR"));
-    app = "";
   }
 
   /**
    * nextToken. Analizza da un buffer carattere per carattere ed individua il token corrispondente
    *
    * @return Token che corrisponde al lessema letto.
+   * @throws Exception 
    */
-  public Token nextToken() throws IOException {
+  public Token nextToken() throws Exception {
     while (true) {
       switch (state) {
         case 0:
           character = (char) nextCharacter();
           if (character == '\0') {
-            System.out.println("fine");
+           // System.out.println("fine");
             return null;
+            //throw new NullPointerException("Fine dell'input");
           } else {
             if (character == '<') {
               state = 1;
@@ -341,7 +342,8 @@ public class LexicalAnalyzer {
   }
 
   // ritorma il prossimo carattere nella stringa
-  private int nextCharacter() throws IOException {
+  private int nextCharacter() {
+  //  System.out.println("APP: "+ app.toString());
     position++;
     return app.charAt(position);
   }
