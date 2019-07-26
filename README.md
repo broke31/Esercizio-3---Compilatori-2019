@@ -1,18 +1,20 @@
 # Esercizio-3---Compilatori-2019
 Data la seguente grammatica
 
+ ```flex
+ N = {Program, Stmt, Expr, Term},
+    T = {ID, IF, THEN, RELOP, NUMBER, ;, ASSIGN},
+    S = P 
 
- N = {Program, Stmt, Expr, Term},<br> 
-    T = {ID, IF, THEN, RELOP, NUMBER, ;, ASSIGN},  <br> <br>
-    S = P <br>
-            P       -> P ; Stmt <br>
-            P       ->    Stmt <br>
-            Stmt    -> IF Expr THEN Stmt <br>
-            Stmt    -> ID ASSIGN Expr <br>
-            Expr    -> Term  RELOP Term <br>
-            Expr    -> Term <br>
-            Term    -> ID <br>
-            Term    -> NUMBER <br>
+            P-> P;Stmt 
+            P->Stmt
+            Stmt->IF Expr THEN Stmt 
+            Stmt->ID ASSIGN Expr 
+            Expr->Term  RELOP Term
+            Expr->Term 
+            Term->ID 
+            Term->NUMBER
+```
        
 
 
@@ -34,30 +36,34 @@ La grammatica non risulta ambigua.
 ## Passo 2: Eliminazione della ricorsione a sinistra
 Una grammatica è detta ricorsiva a sinistra se ha un non terminale  A per cui esiste una derivazione A =>+ Aa <br> I parser top-down non possono gestire grammatiche con ricorsione a sinistra.<br>
 La grammatica è ricorsiva a sinistra. <br>
-Dopo aver eliminato la ricorsione, la grammatica si presenta nel seguente modo:<br>
-    P   -> S P'<br>
-    P'  -> ; S P' |esp<br>
-   //produzione duplicata<br>
-  //  P   -> S<br>
-    S   -> IF E THEN S<br>
-    S   -> ID ASSIGN E<br>
-    E   -> T RELOP T<br>
-    E   -> T<br>
-    T   -> ID<br>
-    T   -> NUMBER <br>
+Dopo aver eliminato la ricorsione, la grammatica si presenta nel seguente modo:
+```flex
+    P->S P'
+    P'->;SP'|esp
+   //produzione duplicata
+  //  P->S
+    S->IF E THEN S
+    S->ID ASSIGN E
+    E->T RELOP T
+    E->T
+    T->ID
+    T->NUMBER
+ ```
 ## Passo 3: Fattorizzazione a sinistra
 La fattorizzazione sinistra è una trasformazione che si usa quando due produzioni alternative per un non terminale A non è chiara<br>
 possiamo riscriverle in modo da differire tale scelta finché non avremo letto abbastanza simboli d'ingresso da poter prendere una decisione corretta<br>
 La grammatica deve essere trasformata tramite una fattorizzazione sinistra<br>
-Dopo averla fattorizzata, la grammatica risulta nel seguente modo: <br>
-    P   -> S P'<br>
-    P'  -> ; S P' |esp<br>
+Dopo averla fattorizzata, la grammatica risulta nel seguente modo:<br>
+```flex
+    P->SP'
+    P'->;SP'|esp
     // produzione duplicata<br>
-   // P   -> S<br>
-    S   -> IF E THEN S<br>
-    S   -> ID ASSIGN E<br>
-    E   -> T E' <br>
-    E'  -> RELOP T <br>
-    E'  -> eps <br>
-    T   -> ID<br>
-    T   -> NUMBER <br>
+   // P->S
+    S->IF E THEN S
+    S->ID ASSIGN E
+    E->TE'
+    E'->RELOP T
+    E'-> eps
+    T->ID
+    T->NUMBER
+```
