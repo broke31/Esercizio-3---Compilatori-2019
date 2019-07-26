@@ -52,6 +52,7 @@ public class Parser {
   }
 
   private boolean T() {
+    /*
     boolean app = lessema.equals("ID") || lessema.equals("NUMBER");
     try {
       next = lexicalAnalyzer.nextToken();
@@ -60,6 +61,18 @@ public class Parser {
       return true;
     }
     return app;
+    */
+    if(lessema.equals("ID") || lessema.equals("NUMBER")) {
+      try {
+        next = lexicalAnalyzer.nextToken();
+        lessema = next.getName();
+        return true;
+      }catch (Exception e) {
+        return true;
+      }
+     
+    }
+    return false;
   }
 
   private boolean PFirst() {
@@ -79,7 +92,7 @@ public class Parser {
             return true;
           }
         } catch (Exception e) {
-          return false;
+          return false; // ho trovato un ; ma non ho trovato nulla dopo... e la stringa non può terminare con un ;
         }
       }
     }
