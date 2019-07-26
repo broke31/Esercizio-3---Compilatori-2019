@@ -40,8 +40,6 @@ Dopo aver eliminato la ricorsione, la grammatica si presenta nel seguente modo:
 ```flex
     P->S P'
     P'->;SP'|esp
-   //produzione duplicata
-  //  P->S
     S->IF E THEN S
     S->ID ASSIGN E
     E->T RELOP T
@@ -57,8 +55,6 @@ Dopo averla fattorizzata, la grammatica risulta nel seguente modo:<br>
 ```flex
     P->SP'
     P'->;SP'|esp
-    // produzione duplicata
-   // P->S
     S->IF E THEN S
     S->ID ASSIGN E
     E->TE'
