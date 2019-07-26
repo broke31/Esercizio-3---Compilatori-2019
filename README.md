@@ -57,7 +57,7 @@ Dopo averla fattorizzata, la grammatica risulta nel seguente modo:<br>
 ```flex
     P->SP'
     P'->;SP'|esp
-    // produzione duplicata<br>
+    // produzione duplicata
    // P->S
     S->IF E THEN S
     S->ID ASSIGN E
